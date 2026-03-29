@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>夏日入侵企画 · 粉丝情绪能量站</title>
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+    <!-- 漂浮的装饰元素 -->
+    <div class="floating-decoration cloud cloud-1">☁️</div>
+    <div class="floating-decoration cloud cloud-2">☁️</div>
+    <div class="floating-decoration cloud cloud-3">☁️</div>
+    <div class="floating-decoration star star-1">✨</div>
+    <div class="floating-decoration star star-2">✨</div>
+    <div class="floating-decoration star star-3">✨</div>
+
+    <div class="container">
+        <!-- 登录模态框 -->
+        <div class="modal" id="loginModal" style="display: none;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>登录</h3>
+                    <button class="close-btn" id="closeLoginModal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form id="loginForm">
+                        <div class="form-group">
+                            <label for="loginUsername">用户名</label>
+                            <input type="text" id="loginUsername" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="loginPassword">密码</label>
+                            <input type="password" id="loginPassword" required>
+                        </div>
+                        <button type="submit" class="submit-btn">登录</button>
+                    </form>
+                    <p class="modal-footer-text">还没有账号？<a href="#" id="switchToRegister">立即注册</a></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 注册模态框 -->
+        <div class="modal" id="registerModal" style="display: none;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>注册</h3>
+                    <button class="close-btn" id="closeRegisterModal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form id="registerForm">
+                        <div class="form-group">
+                            <label for="registerUsername">用户名</label>
+                            <input type="text" id="registerUsername" required minlength="3" maxlength="20">
+                        </div>
+                        <div class="form-group">
+                            <label for="registerPassword">密码</label>
+                            <input type="password" id="registerPassword" required minlength="6">
+                        </div>
+                        <div class="form-group">
+                            <label for="registerConfirmPassword">确认密码</label>
+                            <input type="password" id="registerConfirmPassword" required>
+                        </div>
+                        <button type="submit" class="submit-btn">注册</button>
+                    </form>
+                    <p class="modal-footer-text">已有账号？<a href="#" id="switchToLogin">立即登录</a></p>
+                </div>
+            </div>
+        </div>
+
+        <header class="header">
+            <div class="header-content">
+                <h1 class="site-title">夏日入侵企画能量站</h1>
+                <p class="site-subtitle">还在脚踏实地的做梦已经很好了</p>
+            </div>
+            <div class="header-decoration">
+                <span class="sticker sun">☀️</span>
+                <span class="sticker wave">🌊</span>
+                <span class="sticker star">⭐</span>
+            </div>
+        </header>
+
+        <div class="user-bar">
+            <div class="user-bar-content">
+                <button class="user-btn" id="loginBtn" style="display: block;">登录</button>
+                <button class="user-btn" id="registerBtn" style="display: block;">注册</button>
+                <div class="user-profile" id="userProfile" style="display: none;">
+                    <div class="user-avatar" id="userAvatar">👤</div>
+                    <span class="user-name" id="userName"></span>
+                    <button class="user-btn logout-btn" id="logoutBtn">退出</button>
+                </div>
+            </div>
+        </div>
+
+        <main class="main-content">
+            <section class="mood-box-section">
+                <div class="mood-box-card">
+                    <div class="mood-box-header">
+                        <h2 class="mood-box-title">🎲 摇一摇 · 今日盲盒</h2>
+                        <p class="mood-box-subtitle">抽取你的今日情绪能量</p>
+                    </div>
+                    
+                    <button class="shake-button" id="shakeButton">
+                        <span class="shake-icon">🎁</span>
+                        <span class="shake-text">点击抽取今日签</span>
+                    </button>
+
+                    <div class="mood-result" id="moodResult" style="display: none;">
+                        <div class="note-card">
+                            <div class="note-content">
+                                <p class="note-text" id="noteText"></p>
+                                <p class="note-source" id="noteSource"></p>
+                            </div>
+                            <div class="note-actions">
+                                <button class="action-btn like-btn" id="likeBtn">
+                                    <span class="icon">❤️</span>
+                                    <span class="count" id="likeCount">0</span>
+                                </button>
+                                <button class="action-btn comment-btn" id="commentBtn">
+                                    <span class="icon">💬</span>
+                                    <span class="count" id="commentCount">0</span>
+                                </button>
+                                <button class="action-btn share-btn" id="shareBtn">
+                                    <span class="icon">🔗</span>
+                                    <span class="text">分享</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="comments-section" id="commentsSection" style="display: none;">
+                            <div class="comments-header">
+                                <h3>评论区</h3>
+                            </div>
+                            <div class="comments-list" id="commentsList"></div>
+                            <div class="comment-input">
+                                <textarea id="commentInput" placeholder="写下你的想法..."></textarea>
+                                <button class="submit-comment-btn" id="submitCommentBtn">发布评论</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="history-section">
+                <div class="history-header">
+                    <h2 class="history-title" id="historyTitle">📚 热门便签</h2>
+                    <div class="history-tabs">
+                        <button class="tab-btn active" data-tab="hot">最热门</button>
+                        <button class="tab-btn" data-tab="recent">最近</button>
+                    </div>
+                </div>
+                <div class="history-grid" id="historyGrid"></div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <div class="footer-content">
+                <p class="footer-text">💛 每一个夏天都值得被记住</p>
+                <p class="footer-copyright">#夏日入侵企画 #粉丝情绪能量站</p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/auth-ui.js"></script>
+    <script src="js/mood-box.js"></script>
+    <script src="js/comments.js"></script>
+    <script src="js/poster.js"></script>
+</body>
+</html>
